@@ -6,12 +6,13 @@ fetch(`https://api.github.com/repos/twbs/bootstrap/releases
 `).then((r) => {
   if (r.ok) {
     r.json().then((results) => {
+      data.push(["created_at", "tag_name", "download_url"]);
       results.forEach((obj) => {
-        data.push({
-          created_date: obj.created_at,
-          tag_name: obj.tag_name,
-          browser_download_url: obj.assets[0].browser_download_url,
-        });
+        data.push([
+          obj.created_at,
+          obj.tag_name,
+          obj.assets[0].browser_download_url,
+        ]);
       });
       console.log(data);
     });
