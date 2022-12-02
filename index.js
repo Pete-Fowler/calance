@@ -1,3 +1,6 @@
+// fetch allows you to execute fetches in node.js,
+// and fs is a node file system module that allows you
+// to write to the file system
 import fetch from "node-fetch";
 import fs from "fs";
 
@@ -10,7 +13,9 @@ fetch(`https://api.github.com/repos/twbs/bootstrap/releases
   if (r.ok) {
     r.json().then((results) => {
       results.forEach((obj) => {
+        // iterate through each release object
         data.push([
+          // push the appropriate data into an array
           obj.created_at.slice(0, 10),
           obj.tag_name,
           obj.assets[0].browser_download_url,
@@ -18,7 +23,7 @@ fetch(`https://api.github.com/repos/twbs/bootstrap/releases
       });
 
       // Parse array into CSV format - first join joins rows into a string
-      // with commas. The second join turns the outer array into a string
+      // separated with commas. The second join turns the outer array into a string
       // separated by new lines
       const csv = data.map((row) => row.join(",")).join("\n");
 
@@ -32,6 +37,7 @@ fetch(`https://api.github.com/repos/twbs/bootstrap/releases
       });
     });
   } else {
+    // Otherwise console.log any errors if the fetch response was bad
     r.json().then((err) => console.log(err));
   }
 });
