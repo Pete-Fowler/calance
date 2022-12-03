@@ -22,9 +22,8 @@ fetch(`https://api.github.com/repos/twbs/bootstrap/releases
         ]);
       });
 
-      // Parse array into CSV format - first join joins rows into a string
-      // separated with commas. The second join turns the outer array into a string
-      // separated by new lines
+      // Parse array into CSV format - join rows into strings with
+      // commas and separate them with new lines
       const csv = data.map((row) => row.join(",")).join("\n");
 
       // Use node.js fs.writeFile API to write the data to a .csv
